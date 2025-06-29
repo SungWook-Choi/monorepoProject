@@ -1,0 +1,22 @@
+{
+  "name": "monorepoproject",
+  "private": true,
+  "workspaces": [
+    "front",
+    "server"
+  ],
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "f_dev": "npm --prefix front run dev",
+    "s_dev": "npm --prefix server run start:dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
