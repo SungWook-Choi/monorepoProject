@@ -73,14 +73,13 @@ nav {
   justify-content: left;
   background-color: #888888;
   height: 100vh;
-  width: 30%;
+  width: 200px;
 }
 
 main {
-  display: flex;
   background-color: #747bff;
-  width: 100vw;
   flex-direction: column;
+  flex:1;
 }
 
 

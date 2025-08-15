@@ -43,6 +43,8 @@
 
 .mainContainer {
   display: flex;
+  width: 100vw;
+  height: 100vh;
 }
 
 .headerContainer {
@@ -54,4 +56,15 @@
 
 .bodyContainer {
   display: flex;
+}
+
+.right_sidebar {
+  width: 50px;
+  height: 100vh;
+  background-color: white;
+  color: black;
+}
+
+.right_sidebar:hover {
+  width: 40%;
 }

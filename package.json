@@ -10,8 +10,11 @@
   "main": "index.js",
   "scripts": {
     "f_dev": "npm --prefix front run dev",
+    "f_build": "npm --prefix front run build",
     "s_dev": "npm --prefix server run start:dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "s_build": "npm --prefix server run build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run f_build && npm run s_build"
   },
   "keywords": [],
   "author": "",

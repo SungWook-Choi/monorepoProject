@@ -1,5 +1,6 @@
 import {Link, Outlet} from 'react-router-dom';
 import {routes} from './routes/route.tsx';
+import RightSidePanel from './component/RightSidePannel.tsx';
 
 const Layout = () => {
     return (
@@ -17,6 +18,7 @@ const Layout = () => {
                         <Outlet />
                     </div>
                 </main>
+                <RightSidePanel />
         </div>
     )
 }

@@ -1,0 +1,17 @@
+version: '1.1'
+
+services:
+  frontend:
+    build:
+      context: ./front
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./server
+    ports:
+      - "3000:3000"
+
