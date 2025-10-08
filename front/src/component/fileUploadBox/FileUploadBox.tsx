@@ -1,0 +1,72 @@
+import { type FileWithPath, useDropzone } from 'react-dropzone';
+import './FileUploadBox.css';
+import { useFileStore } from '../../stores/FileStore.ts';
+import { useEffect } from 'react';
+
+const convertFileSizeToMB = (size: number) => (size / 1024 / 1024).toFixed(2);
+
+const FileUploadBox = () => {
+    const { acceptedFiles, getRootProps, getInputProps, open } = useDropzone({
+        noClick: true,
+        noKeyboard: true,
+    });
+    const setFiles = useFileStore((state) => state.setFiles);
+    const files = useFileStore((state) => state.files);
+
+    useEffect(() => {
+        if (files.length !== 0 && acceptedFiles.length === 0) {
+            return;
+        }
+        setFiles({ files: acceptedFiles as FileWithPath[] });
+    }, [acceptedFiles]);
+
+    return (
+        <section className="file_section_container">
+            <div className="file_upload_container">
+                <div {...getRootProps({ className: 'file_upload' })}>
+                    <div className="file_upload_button_container">
+                        <button className="file_upload_button" onClick={open}>
+                            Open File
+                        </button>
+                    </div>
+                    <input {...getInputProps()} />
+                    {files.length === 0 ? (
+                        <p>Click or Drag & Drop File</p>
+                    ) : (
+                        <p>
+                            <table>
+                                <colgroup>
+                                    <col width="100rem" />
+                                    <col width="*" />
+                                    <col width="150px" />
+                                </colgroup>
+                                <tbody>
+                                    {files.map((file, index) => (
+                                        <>
+                                            {index === 0 && (
+                                                <>
+                                                    <tr className="file_table_header">
+                                                        <th>Index</th>
+                                                        <th>File Name</th>
+                                                        <th>File Size</th>
+                                                    </tr>
+                                                </>
+                                            )}
+                                            <tr key={file.path}>
+                                                <td>{index + 1}</td>
+                                                <td>{file.name}</td>
+                                                <td>{`${convertFileSizeToMB(file.size)} MB`}</td>
+                                            </tr>
+                                        </>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </p>
+                    )}
+                </div>
+            </div>
+        </section>
+    );
+};
+
+export default FileUploadBox;
