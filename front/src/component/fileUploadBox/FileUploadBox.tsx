@@ -1,4 +1,4 @@
-import { type FileWithPath, useDropzone } from 'react-dropzone';
+import { useDropzone } from 'react-dropzone';
 import './FileUploadBox.css';
 import { useFileStore } from '../../stores/FileStore.ts';
 import { useEffect } from 'react';
@@ -17,7 +17,11 @@ const FileUploadBox = () => {
         if (files.length !== 0 && acceptedFiles.length === 0) {
             return;
         }
-        setFiles({ files: acceptedFiles as FileWithPath[] });
+
+        const tmp = acceptedFiles.map((file) =>
+            Object.assign(file, { preview: URL.createObjectURL(file) }),
+        );
+        setFiles({ files: tmp });
     }, [acceptedFiles]);
 
     return (
@@ -31,9 +35,9 @@ const FileUploadBox = () => {
                     </div>
                     <input {...getInputProps()} />
                     {files.length === 0 ? (
-                        <p>Click or Drag & Drop File</p>
+                        <p className="file_upload_info">Click or Drag & Drop File</p>
                     ) : (
-                        <p>
+                        <div className="file_table_container">
                             <table>
                                 <colgroup>
                                     <col width="100rem" />
@@ -61,7 +65,7 @@ const FileUploadBox = () => {
                                     ))}
                                 </tbody>
                             </table>
-                        </p>
+                        </div>
                     )}
                 </div>
             </div>

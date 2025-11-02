@@ -14,7 +14,11 @@ import type { FileWithPath } from 'react-dropzone';
 // };
 
 interface stateType {
-    files: FileWithPath[];
+    files: fileItem[];
+}
+
+interface fileItem extends FileWithPath {
+    preview?: string;
 }
 
 const initialState: stateType = {

@@ -29,6 +29,13 @@
     /*border: 1px solid #ffffff;*/
 }
 
+.file_upload_info {
+    width: 50rem;
+    background-color: #81d371;
+    color: white;
+    text-align: center;
+}
+
 table {
     background-color: #ffffff;
     border: 1px solid #888888;
@@ -60,4 +67,8 @@ table tbody tr {
 .file_upload_button_container {
     display: flex;
     justify-content: right;
+}
+
+.file_table_container {
+    margin-top: 10px;
 }
