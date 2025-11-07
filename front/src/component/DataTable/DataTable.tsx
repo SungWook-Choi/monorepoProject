@@ -18,6 +18,9 @@ type DataTableProps<TData> = {
 
 const DEFAULT_SEARCH_PLACEHOLDER = '검색어를 입력하세요';
 
+/**
+ * 검색·페이징·선택·액션 영역까지 한 번에 제공하는 범용 테이블 컴포넌트.
+ */
 const DataTable = <TData,>({
   columns,
   data,
@@ -27,6 +30,7 @@ const DataTable = <TData,>({
   actions,
   getRowId,
 }: DataTableProps<TData>) => {
+  // 선택 기능이 켜져 있을 때만 체크박스 컬럼을 주입한다.
   const selectionColumn = useMemo<ColumnDef<TData, unknown> | null>(() => {
     if (!enableSelection) {
       return null;
@@ -59,6 +63,7 @@ const DataTable = <TData,>({
     };
   }, [enableSelection]);
 
+  // 기존 컬럼 순서는 유지하면서 체크박스 컬럼만 맨 앞에 붙인다.
   const tableColumns = useMemo(() => {
     if (!selectionColumn) {
       return columns;

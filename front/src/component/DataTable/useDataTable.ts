@@ -57,6 +57,7 @@ function useDataTable<TData>({
       return;
     }
 
+    // 선택 상태가 바뀔 때마다 실제 행 데이터를 상위로 전달한다.
     const selectedRows = table.getSelectedRowModel().flatRows.map((row) => row.original);
     onSelectionChange(selectedRows);
   }, [onSelectionChange, table, rowSelection]);
