@@ -1,8 +1,9 @@
-import type {ChangeEvent, InputHTMLAttributes, ReactNode} from 'react';
-import {useEffect, useMemo, useRef} from 'react';
+import type {ChangeEvent, ReactNode} from 'react';
+import {useMemo} from 'react';
 import type {ColumnDef} from '@tanstack/react-table';
 import {flexRender} from '@tanstack/react-table';
 import {useDataTable} from './useDataTable';
+import {IndeterminateCheckbox} from './IndeterminateCheckbox';
 import './DataTable.css';
 
 type DataTableProps<TData> = {
@@ -15,23 +16,7 @@ type DataTableProps<TData> = {
   getRowId?: (originalRow: TData, index: number) => string;
 };
 
-type IndeterminateCheckboxProps = {
-  indeterminate?: boolean;
-} & InputHTMLAttributes<HTMLInputElement>;
-
 const DEFAULT_SEARCH_PLACEHOLDER = '검색어를 입력하세요';
-
-const IndeterminateCheckbox = ({indeterminate, ...props}: IndeterminateCheckboxProps) => {
-  const checkboxRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (checkboxRef.current) {
-      checkboxRef.current.indeterminate = Boolean(indeterminate) && !props.checked;
-    }
-  }, [indeterminate, props.checked]);
-
-  return <input type="checkbox" ref={checkboxRef} {...props} />;
-};
 
 const DataTable = <TData,>({
   columns,
