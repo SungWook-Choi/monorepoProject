@@ -1,6 +1,6 @@
 import {useMemo, useState} from 'react';
-import type {ColumnDef} from '@tanstack/react-table';
-import {DataTable} from '../component/DataTable';
+import type {ColumnDef, PaginationState} from '@tanstack/react-table';
+import {DataTable, type DataTableSlots} from '../component/DataTable';
 
 type Employee = {
   id: string;
@@ -56,6 +56,11 @@ const SAMPLE_EMPLOYEES: Employee[] = [
 
 const HomePage = () => {
   const [selectedRows, setSelectedRows] = useState<Employee[]>([]);
+  const [globalFilter, setGlobalFilter] = useState('');
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 3,
+  });
 
   const columns = useMemo<ColumnDef<Employee, unknown>[]>(() => [
     {
@@ -93,11 +98,39 @@ const HomePage = () => {
 
   const selectedCount = selectedRows.length;
 
-  const actions = (
-    <button type="button" disabled={selectedCount === 0}>
-      Export {selectedCount ? `${selectedCount} rows` : 'selection'}
-    </button>
-  );
+  const slots: DataTableSlots<Employee> = {
+    actions: () => (
+      <button type="button" disabled={selectedCount === 0}>
+        Export {selectedCount ? `${selectedCount} rows` : 'selection'}
+      </button>
+    ),
+    footer: ({table}) => (
+      <>
+        <div className="data-table__pagination">
+          <button
+            type="button"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            이전
+          </button>
+          <span>
+            {table.getState().pagination.pageIndex + 1} / {table.getPageCount() || 1}
+          </span>
+          <button
+            type="button"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            다음
+          </button>
+        </div>
+        <div className="data-table__status">
+          선택 {selectedCount}건 · 총 {table.getFilteredRowModel().rows.length}건
+        </div>
+      </>
+    ),
+  };
 
   return (
     <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
@@ -106,9 +139,15 @@ const HomePage = () => {
         columns={columns}
         data={SAMPLE_EMPLOYEES}
         onSelectionChange={setSelectedRows}
-        actions={actions}
         getRowId={(row) => row.id}
         searchPlaceholder="직원 정보를 검색하세요"
+        className="home-table"
+        toolbarClassName="home-table__toolbar"
+        globalFilter={globalFilter}
+        onGlobalFilterChange={setGlobalFilter}
+        pagination={pagination}
+        onPaginationChange={setPagination}
+        slots={slots}
       />
     </div>
   );

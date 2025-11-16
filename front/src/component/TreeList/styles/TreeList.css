@@ -1,0 +1,170 @@
+/* TreeList 전용 스타일 (rc-tree 오버라이드 포함) */
+.tree-list {
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  background: #7a7a7a;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.tree-list__header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tree-list__header h2 {
+  font-size: 1.5rem;
+  margin: 4px 0 0;
+}
+
+.tree-list__eyebrow {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: #475569;
+  margin: 0;
+}
+
+.tree-list__filter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tree-list__filter-input {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.tree-list__filter-input input {
+  flex: 1;
+  border: 1px solid #cbd5f5;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.tree-list__filter-input button {
+  border: none;
+  background: #6e6e6e;
+  border-radius: 999px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.tree-list__filter-count {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.tree-list__filter-results {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  max-height: 160px;
+  overflow: auto;
+}
+
+.tree-list__filter-results li + li {
+  border-top: 1px solid #e2e8f0;
+}
+
+.tree-list__filter-results button {
+  width: 100%;
+  padding: 8px 12px;
+  text-align: left;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.tree-list__body {
+  display: flex;
+  gap: 24px;
+}
+
+.tree-list__tree,
+.tree-list__details {
+  flex: 1;
+}
+
+.tree-list__tree {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  min-height: 360px;
+}
+.tree-list__tree .rc-tree-node-content-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+.tree-list__tree .rc-tree-node-content-wrapper:hover {
+  background: #818181;
+}
+.tree-list__tree .rc-tree-node-content-wrapper.rc-tree-node-selected {
+  background: #545454;
+}
+.tree-list__tree .rc-tree-switcher-noop {
+  background: none;
+}
+
+.tree-list__details {
+  border: 1px solid #dde1ef;
+  border-radius: 12px;
+  padding: 16px;
+  background: #6e6e6e;
+}
+
+.tree-list__selected-path {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.tree-list__selected-branch ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 16px;
+}
+
+.tree-list__selected-branch li {
+  margin: 4px 0;
+}
+
+.tree-list__selected-branch span {
+  display: inline-block;
+  padding: 2px 4px;
+}
+
+.tree-list__placeholder {
+  color: #94a3b8;
+  margin: 0;
+}
+
+.tree-list mark {
+  background: #fde68a;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+@media (min-width: 768px) {
+  .tree-list__header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .tree-list__filter {
+    width: 360px;
+  }
+}
