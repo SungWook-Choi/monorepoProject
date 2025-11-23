@@ -15,7 +15,12 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   async googleCallback(@Req() req: Request, @Res() res: Response) {
-    const jwt = await this.authService.issueJwt((req as any).user);
+    // 1) 구글에서 넘겨준 사용자 정보를 DB에 반영하고 내부 사용자 정보를 확보
+    const savedUser = await this.authService.handleGoogleLogin(
+      (req as any).user,
+    );
+    // 2) DB 사용자 기준으로 JWT를 재발급해 쿠키에 저장
+    const jwt = await this.authService.issueJwt(savedUser);
     res.cookie('access_token', jwt, {
       httpOnly: true,
       sameSite: 'lax', // 프론트/백엔드 도메인이 다르면 'none' + secure:true

@@ -1,0 +1,7 @@
+-- Login 테이블에 OAuth 사용자 정보를 저장하기 위한 컬럼 추가
+ALTER TABLE `Login`
+  ADD COLUMN `Email` VARCHAR(200) NULL DEFAULT NULL AFTER `IsBlock`,
+  ADD COLUMN `DisplayName` VARCHAR(100) NULL DEFAULT NULL AFTER `Email`,
+  ADD COLUMN `ProviderType` VARCHAR(50) NOT NULL DEFAULT 'local' AFTER `DisplayName`,
+  ADD COLUMN `ProviderUserID` VARCHAR(200) NULL DEFAULT NULL AFTER `ProviderType`,
+  ADD COLUMN `ProfileImageUrl` VARCHAR(255) NULL DEFAULT NULL AFTER `ProviderUserID`;

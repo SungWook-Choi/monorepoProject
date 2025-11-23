@@ -37,6 +37,7 @@ export class UserEntity {
   UpdateUserID: number | null;
 }
 
+@Entity({ name: 'Login' })
 export class LoginEntity {
   @PrimaryGeneratedColumn({ type: 'int', unsigned: true, name: 'UserID' })
   UserID: number;
@@ -49,6 +50,21 @@ export class LoginEntity {
 
   @Column({ type: 'tinyint', width: 1, default: 0, name: 'IsBlock' })
   IsBlock: number;
+
+  @Column({ type: 'varchar', length: 200, name: 'Email', nullable: true })
+  Email: string | null;
+
+  @Column({ type: 'varchar', length: 100, name: 'DisplayName', nullable: true })
+  DisplayName: string | null;
+
+  @Column({ type: 'varchar', length: 50, name: 'ProviderType', default: 'local' })
+  ProviderType: string;
+
+  @Column({ type: 'varchar', length: 200, name: 'ProviderUserID', nullable: true })
+  ProviderUserID: string | null;
+
+  @Column({ type: 'varchar', length: 255, name: 'ProfileImageUrl', nullable: true })
+  ProfileImageUrl: string | null;
 
   @Column({
     type: 'datetime',

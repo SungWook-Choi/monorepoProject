@@ -39,5 +39,8 @@ export class UsersController {
   }
 
   @Get('loginInfo')
-  loginInfo(): loginInfo {}
+  loginInfo(): Promise<loginInfo[]> {
+    // 로그인 테이블에 적재된 차단/계정 정보를 그대로 내려줌
+    return this.usersService.fetchLoginInfo();
+  }
 }
