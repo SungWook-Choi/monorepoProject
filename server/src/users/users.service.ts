@@ -26,7 +26,9 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  async syncGoogleLogin(googleUser: GoogleProfilePayload): Promise<LoginEntity> {
+  async syncGoogleLogin(
+    googleUser: GoogleProfilePayload,
+  ): Promise<LoginEntity> {
     // 구글 OAuth에서 넘어온 식별자를 우선 검색해 기존 사용자와 매칭
     let login = await this.loginRepository.findOne({
       where: {

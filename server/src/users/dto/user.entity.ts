@@ -57,13 +57,28 @@ export class LoginEntity {
   @Column({ type: 'varchar', length: 100, name: 'DisplayName', nullable: true })
   DisplayName: string | null;
 
-  @Column({ type: 'varchar', length: 50, name: 'ProviderType', default: 'local' })
+  @Column({
+    type: 'varchar',
+    length: 50,
+    name: 'ProviderType',
+    default: 'local',
+  })
   ProviderType: string;
 
-  @Column({ type: 'varchar', length: 200, name: 'ProviderUserID', nullable: true })
+  @Column({
+    type: 'varchar',
+    length: 200,
+    name: 'ProviderUserID',
+    nullable: true,
+  })
   ProviderUserID: string | null;
 
-  @Column({ type: 'varchar', length: 255, name: 'ProfileImageUrl', nullable: true })
+  @Column({
+    type: 'varchar',
+    length: 255,
+    name: 'ProfileImageUrl',
+    nullable: true,
+  })
   ProfileImageUrl: string | null;
 
   @Column({
