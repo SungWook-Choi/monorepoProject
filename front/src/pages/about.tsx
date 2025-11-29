@@ -5,9 +5,16 @@ const AboutPage = () => {
     const printRef = useRef<HTMLDivElement>(null);
 
     return (
-        <>
-            <div ref={printRef}>
-                <table>
+        <section className="page-section">
+            <div className="page-card" ref={printRef}>
+                <div className="page-card__header">
+                    <div>
+                        <p className="page-card__eyebrow">샘플 문서</p>
+                        <h2>회사 정보</h2>
+                    </div>
+                    <span className="status-chip">PDF 내보내기</span>
+                </div>
+                <table className="about-table">
                     <tbody>
                         <tr>
                             <td>Column1</td>
@@ -21,7 +28,7 @@ const AboutPage = () => {
                 </table>
             </div>
             <PrintBox printRef={printRef} buttonLabel="인쇄할거야?" />
-        </>
+        </section>
     );
 };
 
