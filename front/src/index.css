@@ -1,85 +1,114 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: 'Pretendard', 'Noto Sans KR', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  color: #172321;
+  background-color: #e7f0ec;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --color-primary: #1c7f4d; /* 톤다운 그린 */
+  --color-primary-dark: #145d37;
+  --color-primary-soft: #d5ede1;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f2f7f4;
+  --color-border: #cbdcd3;
+  --color-text: #172321;
+  --color-text-muted: #4f5f58;
+  --color-mint: #4fb7a5; /* 컴포넌트 포인트용 민트 */
+  --color-mint-soft: #d7f4ec;
+  --shadow-soft: 0 16px 44px rgba(23, 35, 33, 0.08);
 }
 
-a {
-  font-weight: 500;
-  color: #000000;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #000000;
+* {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
+  background-color: var(--color-surface-alt);
+  color: var(--color-text);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-primary);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  border: none;
+  border-radius: 12px;
+  padding: 0.55rem 1.1rem;
+  background: var(--color-mint);
+  color: #fff;
+  font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  box-shadow: 0 6px 16px rgba(31, 127, 77, 0.2);
 }
+
 button:hover {
-  border-color: #000000;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  background: #3f9788;
+  transform: translateY(-1px);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
-nav {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  background-color: #888888;
-  height: 100vh;
-  width: 200px;
+input[type='search'],
+input[type='text'],
+textarea {
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-main {
-  background-color: #000000;
-  flex-direction: column;
-  flex:1;
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-mint);
+  box-shadow: 0 0 0 2px rgba(79, 183, 165, 0.25);
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-surface);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
 
+th,
+td {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+th {
+  background: var(--color-primary-soft);
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+::selection {
+  background: rgba(79, 183, 165, 0.25);
+}

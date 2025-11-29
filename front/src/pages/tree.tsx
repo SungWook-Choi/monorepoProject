@@ -11,20 +11,33 @@ const TreeTasksPage = () => {
   };
 
   return (
-    <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
-      <h1>트리 작업</h1>
-      <p>검색, 선택 이벤트, 재귀적으로 하위 노드를 노출하는 커스텀 트리 컴포넌트입니다.</p>
-      <TreeList
-        nodes={WORKSPACE_TREE_NODES}
-        title="워크스페이스 구조"
-        height={420}
-        onNodeSelect={handleNodeSelect}
-      />
-      <section>
-        <h2>최근 선택한 경로</h2>
+    <section className="page-section">
+      <div className="page-card">
+        <div className="page-card__header">
+          <div>
+            <p className="page-card__eyebrow">조직 구조</p>
+            <h2>트리 작업</h2>
+          </div>
+          <span className="status-chip">실시간</span>
+        </div>
+        <p>검색, 선택 이벤트, 재귀적으로 하위 노드를 노출하는 커스텀 트리 컴포넌트입니다.</p>
+        <TreeList
+          nodes={WORKSPACE_TREE_NODES}
+          title="워크스페이스 구조"
+          height={420}
+          onNodeSelect={handleNodeSelect}
+        />
+      </div>
+      <div className="page-card">
+        <div className="page-card__header">
+          <div>
+            <p className="page-card__eyebrow">최근 선택</p>
+            <h2>선택된 경로</h2>
+          </div>
+        </div>
         <p>{selectedPath || '아직 선택된 노드가 없습니다.'}</p>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 

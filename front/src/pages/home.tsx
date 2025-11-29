@@ -133,23 +133,31 @@ const HomePage = () => {
   };
 
   return (
-    <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
-      <h1>Home Page</h1>
-      <DataTable
-        columns={columns}
-        data={SAMPLE_EMPLOYEES}
-        onSelectionChange={setSelectedRows}
-        getRowId={(row) => row.id}
-        searchPlaceholder="직원 정보를 검색하세요"
-        className="home-table"
-        toolbarClassName="home-table__toolbar"
-        globalFilter={globalFilter}
-        onGlobalFilterChange={setGlobalFilter}
-        pagination={pagination}
-        onPaginationChange={setPagination}
-        slots={slots}
-      />
-    </div>
+    <section className="page-section">
+      <div className="page-card">
+        <div className="page-card__header">
+          <div>
+            <p className="page-card__eyebrow">팀 멤버 현황</p>
+            <h2>주요 구성원 리스트</h2>
+          </div>
+          <span className="status-chip">오늘 업데이트</span>
+        </div>
+        <DataTable
+          columns={columns}
+          data={SAMPLE_EMPLOYEES}
+          onSelectionChange={setSelectedRows}
+          getRowId={(row) => row.id}
+          searchPlaceholder="직원 정보를 검색하세요"
+          className="home-table"
+          toolbarClassName="home-table__toolbar"
+          globalFilter={globalFilter}
+          onGlobalFilterChange={setGlobalFilter}
+          pagination={pagination}
+          onPaginationChange={setPagination}
+          slots={slots}
+        />
+      </div>
+    </section>
   );
 };
 

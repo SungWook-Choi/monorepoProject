@@ -1,7 +1,7 @@
 .data-table {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .data-table__toolbar {
@@ -9,65 +9,66 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 14px;
 }
 
 .data-table__search {
-  flex: 1 1 240px;
-  min-width: 200px;
-  padding: 8px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-.data-table__search:focus {
-  outline: 2px solid #2563eb;
-  border-color: #2563eb;
+  flex: 1 1 260px;
+  min-width: 220px;
+  border-radius: 999px;
+  border: 1px solid #dce9e2;
+  padding: 0.55rem 1.2rem;
+  background: #fff;
+  font-size: 0.95rem;
 }
 
 .data-table__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }
 
 .data-table__container {
   overflow-x: auto;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border: 1px solid #dce9e2;
+  border-radius: 20px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
 }
 
 .data-table__table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: 0.95rem;
 }
 
 .data-table__table thead {
-  background: #f3f4f6;
+  background: linear-gradient(90deg, rgba(21,92,70,0.85), rgba(26,127,98,0.85));
+  color: #f1fff7;
 }
 
 .data-table__table th,
 .data-table__table td {
-  padding: 10px 12px;
-  border-bottom: 1px solid #e5e7eb;
+  padding: 14px 16px;
+  border-bottom: 1px solid #dce9e2;
+  background: rgba(255,255,255,0.92);
 }
 
 .data-table__table tbody tr:hover {
-  background: #f9fafb;
+  background: rgba(79, 183, 165, 0.15);
 }
 
 .data-table__table input[type='checkbox'] {
   width: 16px;
   height: 16px;
   cursor: pointer;
+  accent-color: var(--color-primary);
 }
 
 .data-table__empty {
   text-align: center;
-  padding: 24px 0;
-  color: #6b7280;
+  padding: 28px 0;
+  color: var(--color-text-muted);
 }
 
 .data-table__footer {
@@ -81,23 +82,24 @@
 .data-table__pagination {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .data-table__pagination button {
-  padding: 6px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  background: #ffffff;
-  cursor: pointer;
+  background: var(--color-mint-soft);
+  color: var(--color-text);
+  border: 1px solid #dce9e2;
+  padding: 0.4rem 0.9rem;
+  border-radius: 10px;
+  font-weight: 600;
 }
 
 .data-table__pagination button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+  opacity: 0.4;
+  box-shadow: none;
 }
 
 .data-table__status {
-  color: #4b5563;
-  font-size: 14px;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
 }
