@@ -1,13 +1,13 @@
 import {Link, Outlet, useLocation} from 'react-router-dom';
-import {routes} from './routes/route.tsx';
+import {appRoutes} from './routes/route.tsx';
 import RightSidePanel from './component/RightSidePannel.tsx';
+import {useAuth} from './hooks/useAuth.ts';
 
 const Layout = () => {
   const location = useLocation();
-  const activeRoute = routes.find((route) =>
-    route.id === 'home'
-      ? location.pathname === '/'
-      : location.pathname.startsWith(route.to),
+  const {user, logout, isLoggingOut} = useAuth();
+  const activeRoute = appRoutes.find((route) =>
+    location.pathname.startsWith(route.to),
   );
 
   const handleRefresh = () => {
@@ -23,11 +23,8 @@ const Layout = () => {
           <p>팀 전반을 한 눈에 확인하세요</p>
         </div>
         <div className="sidebar__nav">
-          {routes.map((item) => {
-            const isActive =
-              item.id === 'home'
-                ? location.pathname === '/'
-                : location.pathname.startsWith(item.to);
+          {appRoutes.map((item) => {
+            const isActive = location.pathname.startsWith(item.to);
 
             return (
               <Link
@@ -56,6 +53,22 @@ const Layout = () => {
             <button type="button" className="ghost-button" onClick={handleRefresh}>
               새로 고침
             </button>
+            {user && (
+              <div className="app-header__profile">
+                <div className="profile__info">
+                  <span className="profile__name">{user.name ?? '로그인 사용자'}</span>
+                  <span className="profile__email">{user.email ?? user.provider}</span>
+                  {user.lastLoginAt && (
+                    <span className="profile__meta">
+                      최근 로그인: {new Date(user.lastLoginAt).toLocaleString()}
+                    </span>
+                  )}
+                </div>
+                <button type="button" className="ghost-button" onClick={() => logout()} disabled={isLoggingOut}>
+                  로그아웃
+                </button>
+              </div>
+            )}
           </div>
         </header>
         <section className="app-content">

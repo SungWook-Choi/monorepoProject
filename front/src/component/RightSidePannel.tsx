@@ -24,7 +24,7 @@ const RightSidePanel = () => {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      {!isOpen && <span className="insight-panel__label">알림</span>}
+      {!isOpen && <span className="insight-panel__label">실시간 알림</span>}
       {isOpen && (
         <div className="insight-panel__content">
           <p className="insight-panel__title">실시간 알림</p>

@@ -73,6 +73,8 @@ button:disabled {
 
 input[type='search'],
 input[type='text'],
+input[type='number'],
+input[type='date'],
 textarea {
   border: 1px solid var(--color-border);
   border-radius: 999px;
@@ -86,6 +88,13 @@ textarea:focus {
   outline: none;
   border-color: var(--color-mint);
   box-shadow: 0 0 0 2px rgba(79, 183, 165, 0.25);
+}
+
+select {
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 0.5rem 0.75rem;
+  background: #fff;
 }
 
 table {

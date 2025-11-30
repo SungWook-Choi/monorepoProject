@@ -7,11 +7,14 @@ import { JwtModule } from '@nestjs/jwt';
 import { GoogleStrategy } from './google.strategy';
 import { JwtStrategy } from './jwt.strategy';
 import { UsersModule } from '../users/users.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { LoginHistoryEntity } from './login-history.entity';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     UsersModule,
+    TypeOrmModule.forFeature([LoginHistoryEntity]),
     PassportModule.register({ session: false }),
     JwtModule.registerAsync({
       imports: [ConfigModule],

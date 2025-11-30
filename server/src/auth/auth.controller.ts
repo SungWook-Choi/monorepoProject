@@ -2,7 +2,8 @@ import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import * as process from 'node:process';
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import type { GoogleAuthRequest, JwtAuthRequest } from './auth.types';
 
 @Controller('auth')
 export class AuthController {
@@ -14,13 +15,15 @@ export class AuthController {
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
-  async googleCallback(@Req() req: Request, @Res() res: Response) {
+  async googleCallback(@Req() req: GoogleAuthRequest, @Res() res: Response) {
     // 1) 구글에서 넘겨준 사용자 정보를 DB에 반영하고 내부 사용자 정보를 확보
+    const userAgent = req.get('user-agent') ?? undefined;
     const savedUser = await this.authService.handleGoogleLogin(
-      (req as any).user,
+      req.user,
+      userAgent,
     );
     // 2) DB 사용자 기준으로 JWT를 재발급해 쿠키에 저장
-    const jwt = await this.authService.issueJwt(savedUser);
+    const jwt = this.authService.issueJwt(savedUser);
     res.cookie('access_token', jwt, {
       httpOnly: true,
       sameSite: 'lax', // 프론트/백엔드 도메인이 다르면 'none' + secure:true
@@ -35,8 +38,17 @@ export class AuthController {
 
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
-  me(@Req() req: Request) {
-    return req.user; // 프론트는 쿠키로 인증됨
+  async me(@Req() req: JwtAuthRequest) {
+    const payload = req.user;
+    const lastLogin = await this.authService.findLastLogin(payload.sub);
+    return {
+      id: payload.sub,
+      email: payload.email,
+      name: payload.name,
+      provider: payload.provider,
+      picture: payload.picture ?? null,
+      lastLoginAt: lastLogin?.LoginAt ?? null,
+    }; // 프론트는 쿠키로 인증됨
   }
 
   @Get('logout')

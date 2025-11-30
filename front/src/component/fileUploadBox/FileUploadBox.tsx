@@ -14,7 +14,7 @@ const FileUploadBox = () => {
     const files = useFileStore((state) => state.files);
 
     useEffect(() => {
-        if (files.length !== 0 && acceptedFiles.length === 0) {
+        if (!acceptedFiles.length) {
             return;
         }
 
@@ -22,7 +22,7 @@ const FileUploadBox = () => {
             Object.assign(file, { preview: URL.createObjectURL(file) }),
         );
         setFiles({ files: tmp });
-    }, [acceptedFiles]);
+    }, [acceptedFiles, setFiles]);
 
     return (
         <section className="file_section_container">

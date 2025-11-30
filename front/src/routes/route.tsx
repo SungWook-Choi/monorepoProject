@@ -1,9 +1,7 @@
 import type {JSX} from 'react';
-import HomePage from '../pages/home';
-import AboutPage from '../pages/about';
-import ContractPage from '../pages/contract';
-import Login from '../pages/login.tsx';
-import TreeTasksPage from '../pages/tree';
+import DashboardPage from '../pages/home';
+import LedgerPage from '../pages/ledger.tsx';
+import SystemManagePage from '../pages/system.tsx';
 
 type routeProps = {
     id: string,
@@ -12,10 +10,8 @@ type routeProps = {
     element: JSX.Element
 }
 
-export const routes:routeProps[] = [
-    { id: 'home', to: '/', label: 'Home', element: <HomePage /> },
-    { id: 'about', to: '/about', label: 'About', element: <AboutPage />},
-    { id: 'contract', to: '/contact', label: 'Contact', element: <ContractPage />},
-    { id: 'login', to: '/login', label: 'Login', element: <Login />},
-    { id: 'tree', to: '/tree', label: 'Tree', element: <TreeTasksPage />},
-]
+export const appRoutes:routeProps[] = [
+    { id: 'dashboard', to: '/dashboard', label: '대시보드', element: <DashboardPage /> },
+    { id: 'ledger', to: '/ledger', label: '가계부', element: <LedgerPage />},
+    { id: 'system', to: '/system', label: '시스템 관리', element: <SystemManagePage />},
+];

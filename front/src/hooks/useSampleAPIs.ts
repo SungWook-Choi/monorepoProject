@@ -7,7 +7,7 @@ type User = {
 const useSampleAPIs = () => {
     return useQuery<User, Error>({
         queryKey: ['sample'],
-        queryFn: () => fetchAxios<User>('http://localhost:4000/users'),
+        queryFn: () => fetchAxios<User>('/users'),
         refetchOnWindowFocus: false,
         retry: 0,
     });
