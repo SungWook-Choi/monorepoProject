@@ -1,7 +1,7 @@
 import {Link, Outlet, useLocation} from 'react-router-dom';
 import {appRoutes} from './routes/route.tsx';
 import RightSidePanel from './component/RightSidePannel.tsx';
-import {useAuth} from './hooks/useAuth.ts';
+import {useAuth} from './hooks/auth/useAuth.ts';
 
 const Layout = () => {
   const location = useLocation();

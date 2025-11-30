@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
-import type { aboutAction, aboutType } from '../types';
 import type { Draft } from 'immer';
+import type { aboutAction, aboutType } from '../../types';
 
 const initializeAboutType = (): aboutType => {
     return {

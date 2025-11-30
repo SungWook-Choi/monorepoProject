@@ -1,7 +1,7 @@
 import {useQuery} from '@tanstack/react-query';
-import {fetchAxios} from '../common/api/apis.ts';
-import type {LedgerApiEntry, LedgerEntry} from '../utils/ledgerTypes.ts';
-import {mapLedgerFromApi} from '../utils/ledgerTypes.ts';
+import {fetchAxios} from '../../common/api/apis.ts';
+import type {LedgerApiEntry, LedgerEntry} from '../../utils/ledgerTypes.ts';
+import {mapLedgerFromApi} from '../../utils/ledgerTypes.ts';
 
 export const useLedgerEntries = (range: { startDate: string; endDate: string }) => {
     return useQuery<LedgerEntry[], Error>({

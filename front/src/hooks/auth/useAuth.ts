@@ -1,8 +1,8 @@
 import {useEffect} from 'react';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
-import {API_BASE_URL, fetchAxios} from '../common/api/apis.ts';
-import {useAuthStore} from '../stores/authStore.ts';
-import type {AuthUser} from '../types/auth.ts';
+import {API_BASE_URL, fetchAxios} from '../../common/api/apis.ts';
+import {useAuthStore} from '../../stores/authStore.ts';
+import type {AuthUser} from '../../types/auth.ts';
 
 export const useAuth = () => {
     const queryClient = useQueryClient();

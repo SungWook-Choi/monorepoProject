@@ -1,7 +1,7 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
-import {apiClient, PostAxios} from '../common/api/apis.ts';
-import type {LedgerApiEntry, LedgerEntry, LedgerFormInput} from '../utils/ledgerTypes.ts';
-import {mapLedgerFromApi, toLedgerPayload} from '../utils/ledgerTypes.ts';
+import {apiClient, PostAxios} from '../../common/api/apis.ts';
+import type {LedgerApiEntry, LedgerEntry, LedgerFormInput} from '../../utils/ledgerTypes.ts';
+import {mapLedgerFromApi, toLedgerPayload} from '../../utils/ledgerTypes.ts';
 
 export const useLedgerMutations = (range: { startDate: string; endDate: string }) => {
     const queryClient = useQueryClient();

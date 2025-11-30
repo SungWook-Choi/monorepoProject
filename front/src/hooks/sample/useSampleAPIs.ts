@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchAxios } from '../common/api/apis.ts';
+import { fetchAxios } from '../../common/api/apis.ts';
 
 type User = {
     name: string;

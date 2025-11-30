@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchAxios } from '../common/api/apis.ts';
-import type { UserInfo } from '../types';
+import { fetchAxios } from '../../common/api/apis.ts';
+import type { UserInfo } from '../../types';
 
 const useUserQuery = () => {
     return useQuery<UserInfo>({

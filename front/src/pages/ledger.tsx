@@ -5,8 +5,8 @@ import {type DateSelectArg, type EventClickArg, type DatesSetArg} from '@fullcal
 import koLocale from '@fullcalendar/core/locales/ko';
 import {useMemo} from 'react';
 import LedgerForm from '../component/LedgerForm.tsx';
-import {useLedgerEntries} from '../hooks/useLedgerEntries.ts';
-import {useLedgerMutations} from '../hooks/useLedgerMutations.ts';
+import {useLedgerEntries} from '../hooks/ledger/useLedgerEntries.ts';
+import {useLedgerMutations} from '../hooks/ledger/useLedgerMutations.ts';
 import {useLedgerStore} from '../stores/ledgerStore.ts';
 import type {LedgerFormInput} from '../utils/ledgerTypes.ts';
 import {formatLedgerAmount, toDateInputValue} from '../utils/ledgerTypes.ts';
