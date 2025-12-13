@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LoginHistoryEntity } from './login-history.entity';
 import { Repository } from 'typeorm';
 import type { AuthenticatedUser, GoogleAuthProfile } from './auth.types';
+import type { SignupDto, LoginDto } from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -33,6 +34,58 @@ export class AuthService {
       name: login.DisplayName ?? googleUser.name,
       provider: login.ProviderType,
       picture: login.ProfileImageUrl ?? googleUser.picture,
+    };
+  }
+
+  async signupLocal(payload: SignupDto): Promise<AuthenticatedUser> {
+    if (!payload.email || !payload.password || !payload.name) {
+      throw new BadRequestException('name, email, password are required');
+    }
+
+    // 로컬 사용자 계정을 생성하고 즉시 로그인 가능한 최소 정보 반환
+    const login = await this.usersService.createLocalLogin({
+      email: payload.email,
+      password: payload.password,
+      name: payload.name,
+    });
+
+    return {
+      id: login.UserID,
+      email: login.Email ?? undefined,
+      name: login.DisplayName ?? undefined,
+      provider: login.ProviderType,
+      picture: login.ProfileImageUrl,
+    };
+  }
+
+  async handleLocalLogin(
+    payload: LoginDto,
+    userAgent?: string,
+  ): Promise<AuthenticatedUser> {
+    if (!payload.email || !payload.password) {
+      throw new BadRequestException('email and password are required');
+    }
+
+    // 이메일/비밀번호 검증 및 차단 상태 확인
+    const login = await this.usersService.verifyLocalLogin(
+      payload.email,
+      payload.password,
+    );
+
+    // 로컬 로그인도 동일한 이력 테이블에 적재
+    await this.recordLoginHistory({
+      userId: login.UserID,
+      provider: login.ProviderType,
+      email: login.Email ?? undefined,
+      userAgent,
+    });
+
+    return {
+      id: login.UserID,
+      email: login.Email ?? undefined,
+      name: login.DisplayName ?? undefined,
+      provider: login.ProviderType,
+      picture: login.ProfileImageUrl,
     };
   }
 

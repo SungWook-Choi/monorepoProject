@@ -1,8 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LoginEntity, UserEntity } from './dto/user.entity';
 import { Repository } from 'typeorm';
 import { loginInfo } from './dto/create-user.dto';
+import { randomBytes, scryptSync, timingSafeEqual } from 'crypto';
 
 interface GoogleProfilePayload {
   provider: string;
@@ -72,6 +78,68 @@ export class UsersService {
     return this.loginRepository.save(login);
   }
 
+  async createLocalLogin(params: {
+    email: string;
+    password: string;
+    name: string;
+  }): Promise<LoginEntity> {
+    const email = params.email.trim().toLowerCase();
+    if (!email || !params.password) {
+      throw new BadRequestException('email and password are required');
+    }
+
+    // 동일 이메일로 로컬 계정이 이미 있으면 생성 차단
+    const exists = await this.loginRepository.findOne({
+      where: { Email: email, ProviderType: 'local' },
+    });
+    if (exists) {
+      throw new ConflictException('email already exists');
+    }
+
+    const hashedPassword = this.hashPassword(params.password);
+
+    const login = this.loginRepository.create({
+      Email: email,
+      DisplayName: params.name || null,
+      ProviderType: 'local',
+      ProviderUserID: null,
+      ProfileImageUrl: null,
+      Password: hashedPassword,
+      BlockCnt: 0,
+      IsBlock: 0,
+      CreateUserID: 0,
+      UpdateUserID: 0,
+    });
+
+    return this.loginRepository.save(login);
+  }
+
+  async verifyLocalLogin(
+    email: string,
+    password: string,
+  ): Promise<LoginEntity> {
+    const normalizedEmail = email.trim().toLowerCase();
+    const login = await this.loginRepository.findOne({
+      where: { Email: normalizedEmail, ProviderType: 'local' },
+    });
+
+    if (!login) {
+      throw new UnauthorizedException('invalid credentials');
+    }
+
+    if (login.IsBlock === 1) {
+      throw new UnauthorizedException('account is blocked');
+    }
+
+    // 저장된 해시와 입력 비밀번호 비교
+    const isValid = this.verifyPassword(password, login.Password);
+    if (!isValid) {
+      throw new UnauthorizedException('invalid credentials');
+    }
+
+    return login;
+  }
+
   async fetchLoginInfo(): Promise<loginInfo[]> {
     // 로그인 테이블의 차단 여부를 API 규격에 맞게 boolean으로 변환해 응답
     const rows = await this.loginRepository.find({
@@ -82,5 +150,22 @@ export class UsersService {
       BlockCnt: row.BlockCnt,
       IsBlock: row.IsBlock === 1,
     }));
+  }
+
+  private hashPassword(password: string): string {
+    // scrypt + salt 기반 해싱 (salt:hash 형태로 저장)
+    const salt = randomBytes(16).toString('hex');
+    const hash = scryptSync(password, salt, 64).toString('hex');
+    return `${salt}:${hash}`;
+  }
+
+  private verifyPassword(password: string, stored: string): boolean {
+    const [salt, hashed] = stored.split(':');
+    if (!salt || !hashed) return false;
+    const hashToCompare = scryptSync(password, salt, 64).toString('hex');
+    return timingSafeEqual(
+      Buffer.from(hashToCompare, 'hex'),
+      Buffer.from(hashed, 'hex'),
+    );
   }
 }

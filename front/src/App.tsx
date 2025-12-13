@@ -2,7 +2,7 @@ import './App.css'
 import {Navigate, Route, Routes} from 'react-router-dom';
 import Layout from './layout.tsx';
 import {appRoutes} from './routes/route.tsx';
-import Login from './pages/login.tsx';
+import Login from './pages/Login/login.tsx';
 import RequireAuth from './routes/RequireAuth.tsx';
 
 function App() {

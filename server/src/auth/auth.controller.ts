@@ -1,9 +1,18 @@
-import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import * as process from 'node:process';
-import { Response } from 'express';
+import type { Request, Response } from 'express';
 import type { GoogleAuthRequest, JwtAuthRequest } from './auth.types';
+import { SignupDto, LoginDto } from './dto/auth.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -34,6 +43,43 @@ export class AuthController {
     });
     // 로그인 후 프론트로 이동
     res.redirect(`${process.env.FRONT_URL}`);
+  }
+
+  @Post('signup')
+  async signup(@Body() body: SignupDto, @Res() res: Response) {
+    // 로컬 회원가입 후 바로 JWT 쿠키를 내려 세션을 수립
+    const user = await this.authService.signupLocal(body);
+    const jwt = this.authService.issueJwt(user);
+    res.cookie('access_token', jwt, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: false,
+      domain: process.env.COOKIE_DOMAIN,
+      path: '/',
+      maxAge: 1000 * 60 * 60 * 24,
+    });
+    res.send({ ok: true, message: 'signup created' });
+  }
+
+  @Post('login')
+  async login(
+    @Body() body: LoginDto,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    // 이메일/비밀번호 검증 후 JWT 쿠키를 재발급하고 로그인 이력 기록
+    const userAgent = req.get('user-agent') ?? undefined;
+    const user = await this.authService.handleLocalLogin(body, userAgent);
+    const jwt = this.authService.issueJwt(user);
+    res.cookie('access_token', jwt, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: false,
+      domain: process.env.COOKIE_DOMAIN,
+      path: '/',
+      maxAge: 1000 * 60 * 60 * 24,
+    });
+    res.send({ ok: true, message: 'login success' });
   }
 
   @Get('me')
