@@ -6,6 +6,20 @@ export type SignupFormValues = {
     acceptTerms: boolean;
 };
 
+export type SignupModalProps = {
+    isOpen: boolean;
+    onClose: () => void;
+    defaultEmail?: string;
+};
+
+export type SignupModalState = {
+    form: SignupFormValues;
+    feedback: string | null;
+    error: string | null;
+    liveErrors: string[];
+    isSubmitting: boolean;
+};
+
 export type SignupRequestBody = {
     name: string;
     email: string;

@@ -1,70 +1,21 @@
-import {FormEvent, useEffect, useMemo, useState} from 'react';
-import {useSignup} from './hooks/useSignup.ts';
-import type {SignupFormValues} from './type/signup.ts';
-import {collectSignupErrors, isStrongPassword} from './utils/validators.ts';
+import {isStrongPassword} from './utils/validators.ts';
+import type {SignupModalProps} from './type/signup.ts';
+import {useSignupModal} from './hooks/useSignupModal.ts';
 import './style/signupModal.css';
 
-type SignupModalProps = {
-    isOpen: boolean;
-    onClose: () => void;
-    defaultEmail?: string;
-};
-
-const initialForm: SignupFormValues = {
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    acceptTerms: false,
-};
-
 const SignupModal = ({isOpen, onClose, defaultEmail}: SignupModalProps) => {
-    const [form, setForm] = useState<SignupFormValues>(initialForm);
-    const [feedback, setFeedback] = useState<string | null>(null);
-    const [error, setError] = useState<string | null>(null);
-    const {submit, isSubmitting} = useSignup();
-
-    useEffect(() => {
-        if (isOpen) {
-            setForm((prev) => ({
-                ...prev,
-                email: defaultEmail ?? prev.email,
-            }));
-            setFeedback(null);
-            setError(null);
-        }
-    }, [defaultEmail, isOpen]);
-
-    const liveErrors = useMemo(() => collectSignupErrors(form), [form]);
-
-    const handleClose = () => {
-        setForm(initialForm);
-        setFeedback(null);
-        setError(null);
-        onClose();
-    };
+    const {
+        form,
+        feedback,
+        error,
+        liveErrors,
+        isSubmitting,
+        handleClose,
+        handleSubmit,
+        updateField,
+    } = useSignupModal({isOpen, onClose, defaultEmail});
 
     if (!isOpen) return null;
-
-    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setError(null);
-        setFeedback(null);
-
-        const result = await submit(form);
-        if (result?.kind === 'success') {
-            setFeedback(result.message);
-            setTimeout(() => {
-                handleClose();
-            }, 1200);
-        } else if (result?.kind === 'error') {
-            setError(result.message);
-        }
-    };
-
-    const updateField = <K extends keyof SignupFormValues>(key: K, value: SignupFormValues[K]) => {
-        setForm((prev) => ({...prev, [key]: value}));
-    };
 
     return (
         <div className="signup-modal__backdrop" role="dialog" aria-modal="true">
