@@ -1,7 +1,7 @@
 import {useState} from 'react';
-import {TreeList} from '../component/TreeList';
-import type {TreeNodeSelection} from '../component/TreeList';
-import {WORKSPACE_TREE_NODES} from '../data/tree.nodes';
+import {TreeList} from '../../component/TreeList';
+import type {TreeNodeSelection} from '../../component/TreeList';
+import {WORKSPACE_TREE_NODES} from '../../data/tree.nodes';
 
 const TreeTasksPage = () => {
   const [selectedPath, setSelectedPath] = useState('');

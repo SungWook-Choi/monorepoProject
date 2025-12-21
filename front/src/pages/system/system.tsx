@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchAxios } from '../common/api/apis.ts';
-import type { UserInfo } from '../types';
-import { useAuth } from '../hooks/auth/useAuth.ts';
+import { fetchAxios } from '../../common/api/apis.ts';
+import type { UserInfo } from '../../types';
+import { useAuth } from '../../hooks/auth/useAuth.ts';
 
 const SystemManagePage = () => {
     const { user } = useAuth();

@@ -1,4 +1,4 @@
-import FileUploadBox from '../component/fileUploadBox/FileUploadBox.tsx';
+import FileUploadBox from '../../component/fileUploadBox/FileUploadBox.tsx';
 
 const ContractPage = () => {
     return (

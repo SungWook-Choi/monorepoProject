@@ -1,7 +1,7 @@
 import type {JSX} from 'react';
-import DashboardPage from '../pages/home';
-import LedgerPage from '../pages/ledger.tsx';
-import SystemManagePage from '../pages/system.tsx';
+import DashboardPage from '../pages/home/home';
+import LedgerPage from '../pages/ledger/ledger';
+import SystemManagePage from '../pages/system/system';
 
 type routeProps = {
     id: string,

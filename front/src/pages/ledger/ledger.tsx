@@ -2,8 +2,8 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import koLocale from '@fullcalendar/core/locales/ko';
-import LedgerForm from '../component/LedgerForm.tsx';
-import {useLedgerPage} from '../hooks/ledger/useLedgerPage.ts';
+import LedgerForm from '../../component/LedgerForm.tsx';
+import {useLedgerPage} from '../../hooks/ledger/useLedgerPage.ts';
 
 const LedgerPage = () => {
     const {

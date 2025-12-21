@@ -1,6 +1,6 @@
 import {useMemo, useState} from 'react';
 import type {ColumnDef, PaginationState} from '@tanstack/react-table';
-import {DataTable, type DataTableSlots} from '../component/DataTable';
+import {DataTable, type DataTableSlots} from '../../component/DataTable';
 
 type Employee = {
   id: string;

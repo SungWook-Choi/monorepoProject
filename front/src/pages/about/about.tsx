@@ -1,4 +1,4 @@
-import PrintBox from '../component/PrintBox.tsx';
+import PrintBox from '../../component/PrintBox.tsx';
 import { useRef } from 'react';
 
 const AboutPage = () => {
