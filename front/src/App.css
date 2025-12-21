@@ -207,13 +207,38 @@
 .ledger-event--income {
   background: #e5f7ef !important;
   border-color: #12b76a !important;
-  color: #0b7a45;
+  color: #0b7a45 !important;
 }
 
 .ledger-event--expense {
   background: #fff0f0 !important;
   border-color: #d92c20 !important;
-  color: #a2261c;
+  color: #a2261c !important;
+}
+
+.ledger-event--income .fc-event-title,
+.ledger-event--income .fc-event-time,
+.ledger-event--expense .fc-event-title,
+.ledger-event--expense .fc-event-time {
+  color: inherit !important;
+}
+
+.fc .fc-daygrid-event .fc-event-title {
+  font-weight: 600;
+}
+
+.ledger-event--income .fc-event-title-container,
+.ledger-event--expense .fc-event-title-container,
+.ledger-event--income.fc-event,
+.ledger-event--expense.fc-event {
+  color: inherit !important;
+}
+
+.ledger-event--income .fc-event-main,
+.ledger-event--expense .fc-event-main,
+.ledger-event--income .fc-daygrid-event-dot,
+.ledger-event--expense .fc-daygrid-event-dot {
+  color: inherit !important;
 }
 
 .app-header__search {
